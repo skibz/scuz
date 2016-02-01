@@ -1,13 +1,20 @@
 {
   "name": "scuz",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "a resful web server with in-memory storage suitable for prototyping",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js"
   },
-  "keywords": ["rest", "restful", "prototype", "prototyping", "web", "server"],
+  "keywords": [
+    "rest",
+    "restful",
+    "prototype",
+    "prototyping",
+    "web",
+    "server"
+  ],
   "author": "Ant Cosentino <ant@io.co.za>",
   "license": "Unlicense",
   "dependencies": {
@@ -22,8 +29,8 @@
     "url": "https://github.com/skibz/scuz"
   },
   "bugs": {
-    "url" : "https://github.com/skibz/scuz/issues",
-    "email" : "ant@io.co.za"
+    "url": "https://github.com/skibz/scuz/issues",
+    "email": "ant@io.co.za"
   },
   "devDependencies": {
     "chai": "^3.5.0",
