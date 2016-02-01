@@ -1,0 +1,30 @@
+{
+  "name": "scuz",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "Ant Cosentino <ant@io.co.za>",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "cors": "^2.7.1",
+    "express": "^4.13.4",
+    "method-override": "^2.3.5",
+    "morgan": "^1.6.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-as-promised": "^5.2.0",
+    "codeclimate-test-reporter": "^0.3.0",
+    "istanbul": "^0.4.2",
+    "mocha": "^2.4.5",
+    "nodemon": "^1.8.1",
+    "sinon": "^1.17.3",
+    "sinon-chai": "^2.8.0"
+  }
+}
