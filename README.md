@@ -17,10 +17,10 @@ http.get('http://localhost:1337/', function(res) {
   }).on('end', function() {
     console.log(JSON.parse(json));
     // {
-    //   "error": false,
-    //   "status": 200,
-    //   "message": "ok",
-    //   "body": {}
+    //   error: false,
+    //   status: 200,
+    //   message: "ok",
+    //   body: {}
     // }
   });
 }).on('error', console.log.bind(console));
