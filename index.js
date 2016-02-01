@@ -198,13 +198,21 @@ scuz.delete('/:resource/:id', function(req, res) {
 });
 
 if (process.env.SCUZ_SAVE_INTERVAL) {
-  var saveTimer = setInterval(function() {
-    fs.createWriteStream(
-      __dirname + '/' + (process.env.SCUZ_JSON_NAME || 'scuz.json')
-    ).end(JSON.stringify(scuz.get('storage')), function() {
-      console.log('[scuz info] wrote storage to disk!');
-    });
-  }, process.env.SCUZ_SAVE_INTERVAL);
+  try {
+    var saveTimer = setInterval(function() {
+      fs.createWriteStream(
+        __dirname + '/' + (process.env.SCUZ_JSON_NAME || 'scuz.json')
+      ).end(JSON.stringify(scuz.get('storage')), function() {
+        console.log('[scuz info] wrote storage to disk!');
+      });
+    }, parseInt(process.env.SCUZ_SAVE_INTERVAL, 10));
+  } catch (ex) {
+    console.error(
+      '[scuz error] SCUZ_SAVE_INTERVAL (' +
+      process.env.SCUZ_SAVE_INTERVAL +
+      ') is not a number!'
+    );
+  }
 }
 
 process.on('uncaughtException', function(err) {
