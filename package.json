@@ -1,6 +1,6 @@
 {
   "name": "scuz",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "a restful web server with in-memory storage suitable for prototyping",
   "main": "index.js",
   "scripts": {
