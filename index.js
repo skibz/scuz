@@ -1,12 +1,18 @@
 
 'use strict';
 
-var fs = require('fs');
-var cors = require('cors');
-var morgan = require('morgan');
+var SCUZ_SAVE_ON_EXIT = process.env.SCUZ_SAVE_ON_EXIT || false;
+var SCUZ_LOAD_STORAGE = process.env.SCUZ_LOAD_STORAGE || false;
+var SCUZ_STORAGE_NAME = process.env.SCUZ_STORAGE_NAME || 'scuz.json';
+var SCUZ_SAVE_INTERVAL = process.env.SCUZ_SAVE_INTERVAL || false;
+var SCUZ_PORT = process.env.SCUZ_PORT || process.env.PORT || 1337;
+
 var methodOverride = require('method-override');
 var bodyParser = require('body-parser');
 var express = require('express');
+var morgan = require('morgan');
+var cors = require('cors');
+var fs = require('fs');
 
 var scuz = express();
 
@@ -197,21 +203,17 @@ scuz.delete('/:resource/:id', function(req, res) {
   }
 });
 
-if (process.env.SCUZ_SAVE_INTERVAL) {
+if (SCUZ_SAVE_INTERVAL) {
   try {
     var saveTimer = setInterval(function() {
       fs.createWriteStream(
-        __dirname + '/' + (process.env.SCUZ_JSON_NAME || 'scuz.json')
+        __dirname + '/' + SCUZ_STORAGE_NAME
       ).end(JSON.stringify(scuz.get('storage')), function() {
         console.log('[scuz info] wrote storage to disk!');
       });
-    }, parseInt(process.env.SCUZ_SAVE_INTERVAL, 10));
+    }, parseInt(SCUZ_SAVE_INTERVAL, 10));
   } catch (ex) {
-    console.error(
-      '[scuz error] SCUZ_SAVE_INTERVAL (' +
-      process.env.SCUZ_SAVE_INTERVAL +
-      ') is not a number!'
-    );
+    console.error('[scuz error] SCUZ_SAVE_INTERVAL (%s) is not a number!', SCUZ_SAVE_INTERVAL);
   }
 }
 
@@ -220,26 +222,20 @@ process.on('uncaughtException', function(err) {
 }).on('unhandledRejection', function(err) {
   console.error('[scuz error] unhandled rejection', err);
 }).on('exit', function(code) {
-  if (!process.env.SCUZ_SAVE_ON_EXIT) return;
+  if (!SCUZ_SAVE_ON_EXIT) return;
   console.log('[scuz info] writing json to disk...');
   fs.writeFileSync(
-    __dirname + '/' + (process.env.SCUZ_JSON_NAME || 'scuz.json'),
+    __dirname + '/' + SCUZ_STORAGE_NAME,
     JSON.stringify(scuz.get('storage'))
   );
-  console.log('[scuz info] done!')
+  console.log('[scuz info] ...done!')
   console.log('[scuz info] about to exit with code', code);
 });
 
-scuz.set(
-  'storage',
-  process.env.SCUZ_LOAD_STORAGE && fs.existsSync(__dirname + '/scuz.json') ?
-    require('./' + (process.env.SCUZ_JSON_NAME || 'scuz.json')) : {}
+scuz.set('storage', SCUZ_LOAD_STORAGE && fs.existsSync(__dirname + '/' + SCUZ_STORAGE_NAME) ?
+  require('./' + SCUZ_STORAGE_NAME) : {}
 );
 
-module.exports = scuz.listen.bind(
-  scuz,
-  process.env.PORT || process.env.SCUZ_PORT || 1337,
-  function() {
-    console.log('[scuz info] http://localhost:' + (process.env.PORT || process.env.SCUZ_PORT || 1337));
-  }
-);
+module.exports = scuz.listen.bind(scuz, SCUZ_PORT, function() {
+  console.log('[scuz info] http://localhost:%s', SCUZ_PORT);
+});
