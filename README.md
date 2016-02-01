@@ -11,18 +11,8 @@ var scuz = require('scuz');
 var server = scuz();
 
 http.get('http://localhost:1337/', function(res) {
-  var json = '';
-  res.on('data', function(data) {
-    json += data;
-  }).on('end', function() {
-    console.log(JSON.parse(json));
-    // {
-    //   error: false,
-    //   status: 200,
-    //   message: "ok",
-    //   body: {}
-    // }
-  });
+  res.pipe(process.stdout);
+  // {"error":false,"status":200,"message":"ok","body":{}}
 }).on('error', console.log.bind(console));
 ```
 
