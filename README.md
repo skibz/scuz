@@ -27,7 +27,7 @@ http.get('http://localhost:1337/', function(res) {
 ```
 
 * `SCUZ_JSON_NAME` - overrides the default storage name, `scuz.json`.
-* `SCUZ_SAVE_INTERVAL` - if unset, `scuz.json` will not be persisted to disk at timely intervals. interval value is milliseconds.
-* `SCUZ_SAVE_ON_EXIT` - save in-memory storage to `scuz.json` on exit.
+* `SCUZ_SAVE_INTERVAL` - if unset, `scuz.json` will not be persisted to disk at timely intervals. interval value is milliseconds. **unset** by default.
+* `SCUZ_SAVE_ON_EXIT` - save in-memory storage to `scuz.json` on exit. **unset** by default.
 * `SCUZ_LOAD_STORAGE` - load `scuz.json` into memory at bootstrap.
-* `SCUZ_PORT` - port to which the web server will be bound.
+* `SCUZ_PORT` - port to which the web server will be bound. set to **1337** by default.
