@@ -1,7 +1,7 @@
 
 # scuz
 
-> a resful web server with in-memory storage suitable for prototyping
+> a restful web server with in-memory storage suitable for prototyping
 
 ##### example
 

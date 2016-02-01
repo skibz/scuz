@@ -1,7 +1,7 @@
 {
   "name": "scuz",
   "version": "0.0.2",
-  "description": "a resful web server with in-memory storage suitable for prototyping",
+  "description": "a restful web server with in-memory storage suitable for prototyping",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
