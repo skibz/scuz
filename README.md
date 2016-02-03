@@ -1,5 +1,5 @@
 
-# scuz
+# scuz [![Build Status](https://travis-ci.org/skibz/scuz.svg?branch=master)](https://travis-ci.org/skibz/scuz) [![Test Coverage](https://codeclimate.com/github/skibz/scuz/badges/coverage.svg)](https://codeclimate.com/github/skibz/scuz/coverage) [![Code Climate](https://codeclimate.com/github/skibz/scuz/badges/gpa.svg)](https://codeclimate.com/github/skibz/scuz)
 
 > a restful web server with in-memory storage suitable for prototyping
 

@@ -1,9 +1,15 @@
 env:
-  - CODECLIMATE_REPO_TOKEN=token_here
+  - CODECLIMATE_REPO_TOKEN=39c3a8c21b12e346c62f4650c9edc2daac64a5718a65c858086be6e9bcdf7c9d
 language: node_js
 node_js:
-  - '4.2.0'
+  - '4.1'
+  - '4.0'
   - '0.12'
+  - '0.11'
+  - '0.10'
+  - '0.8'
+  - '0.6'
+  - 'iojs'
 after_script:
   - npm test --coverage
   - codeclimate-test-reporter < coverage/lcov.info
