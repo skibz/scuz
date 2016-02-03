@@ -4,7 +4,7 @@
   "description": "a restful web server with in-memory storage suitable for prototyping",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "exit",
     "start": "nodemon index.js"
   },
   "keywords": [
