@@ -25,3 +25,7 @@ environment variable | default     | type    | description
 `SCUZ_SAVE_ON_EXIT`  | unset       | n/a     | save in-memory storage to `scuz.json` on exit
 `SCUZ_LOAD_STORAGE`  | unset       | n/a     | load `scuz.json` into memory at bootstrap
 `SCUZ_PORT`          | `1337`      | integer | port to which the web server will be bound
+
+##### notes
+
+this api server doesn't support node 0.8 and lower, though that isn't likely to be a problem for anyone.
