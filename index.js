@@ -12,8 +12,10 @@ var bodyParser = require('body-parser');
 var express = require('express');
 var morgan = require('morgan');
 var cors = require('cors');
+var path = require('path');
 var fs = require('fs');
 
+var storagePath = path.join(__dirname, SCUZ_STORAGE_NAME);
 var scuz = express();
 
 scuz.use(morgan('dev'));
@@ -207,8 +209,9 @@ if (SCUZ_SAVE_INTERVAL) {
   try {
     var saveTimer = setInterval(function() {
       fs.createWriteStream(
-        __dirname + '/' + SCUZ_STORAGE_NAME
-      ).end(JSON.stringify(scuz.get('storage')), function() {
+        storagePath
+      ).end(
+        JSON.stringify(scuz.get('storage')), function() {
         console.log('[scuz info] wrote storage to disk!');
       });
     }, parseInt(SCUZ_SAVE_INTERVAL, 10));
@@ -224,17 +227,12 @@ process.on('uncaughtException', function(err) {
 }).on('exit', function(code) {
   if (!SCUZ_SAVE_ON_EXIT) return;
   console.log('[scuz info] writing json to disk...');
-  fs.writeFileSync(
-    __dirname + '/' + SCUZ_STORAGE_NAME,
-    JSON.stringify(scuz.get('storage'))
-  );
+  fs.writeFileSync(storagePath, JSON.stringify(scuz.get('storage')));
   console.log('[scuz info] ...done!')
   console.log('[scuz info] about to exit with code', code);
 });
 
-scuz.set('storage', SCUZ_LOAD_STORAGE && fs.existsSync(__dirname + '/' + SCUZ_STORAGE_NAME) ?
-  require('./' + SCUZ_STORAGE_NAME) : {}
-);
+scuz.set('storage', SCUZ_LOAD_STORAGE && fs.existsSync(storagePath) ? require('./' + storagePath) : {});
 
 module.exports = scuz.listen.bind(scuz, SCUZ_PORT, function() {
   console.log('[scuz info] http://localhost:%s', SCUZ_PORT);
